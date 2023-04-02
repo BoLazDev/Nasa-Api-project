@@ -29,8 +29,8 @@ const getPuctureOfTheDay = async (request, reply) => {
         //console.log("DATA :", data);
 
         // Save redacted data in the database
-        let { date, title, explanation, hdurl, url } = data;
-        date = '2023-06-32'; //test for different dates
+        const { date, title, explanation, hdurl, url } = data;
+        //date = '2023-06-32'; //test for different dates
         const dataToInsert = {
             [date]: {
               "title": title,
@@ -125,7 +125,7 @@ const listPhotosMarsRovers = async(request, reply) => {
         // Send request to NASA API
         const response = await axios.get(nasaUrl);
         const data = response.data;
-        console.log("DATA :", data.photos.length);
+        //console.log("DATA :", data.photos.length);
         const promises = [];
         for (const photo of data?.photos) {
             // console.log('Element Camera :', photo.camera);
