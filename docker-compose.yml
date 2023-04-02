@@ -1,0 +1,23 @@
+version: '3'
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: 'borce'
+      POSTGRES_PASSWORD: 'secret'
+      POSTGRES_DB: 'nasa_test'
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+  app:
+    build: .
+    environment:
+      POSTGRES_USER: 'borce'
+      POSTGRES_PASSWORD: 'secret'
+      POSTGRES_DB: 'nasa_test'
+      POSTGRES_HOST: 'localhost'
+      POSTGRES_PORT: 5432
+    ports:
+      - "9000:9000"
+    depends_on:
+      - postgres
+
