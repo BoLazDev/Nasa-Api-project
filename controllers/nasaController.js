@@ -1,5 +1,6 @@
 const axios = require('axios');
 const pool = require('../connection.js');
+const sql = require('../db.js');
 
 // route creating the table only for testing
 const createTablePicuteOfTheDay = async(request, reply) => {
@@ -192,7 +193,7 @@ const getFilteredPhotos = async (startId, endId, startDate, endDate) => {
         //console.log("QUERY :", query);
         // Return the results
         const result = await pool.query(query);
-        console.log("result :", result);
+        // console.log("result :", result);
         if(!result || result.rows.length === 0) {
             throw new Error('Could not find any results');
         }

@@ -1,39 +1,15 @@
 const { getPuctureOfTheDay, createTablePicuteOfTheDay, listPhotosMarsRovers, filterMarsPhotos, getNearEarthObjects } = require('../controllers/nasaController');
-
+const filterMPSchema = require('../schemas/filterMarsPhotosSchema');
 function nasaRoutes(fastify, options, done) {
     // Options for Nasa Picture of the day
     const nasaPictureOpts = {
-        // schema: {
-        //     response: {
-        //         200: {
-        //             type: 'object',
-        //             properties: {
-        //                 date: { type: 'string' },
-        //                 title: { type: 'string' },
-        //                 explanation: { type: 'string' },
-        //                 hdurl: { type: 'string' },
-        //                 url: { type: 'string' }, 
-        //             }
-        //         }
-        //     }
-        // },
         handler: getPuctureOfTheDay,
     };
 
     const filterMarsPhotosSchema = {
-        // schema: {
-        //     response: {
-        //         201: {
-        //             type: 'object',
-        //             properties: {
-        //                 startId: { type: 'integer' },
-        //                 endId: { type: 'integer' },
-        //                 startDate: { type: 'string', format: 'date' },
-        //                 endDate: { type: 'string', format: 'date' }
-        //             }
-        //         }
-        //     }
-        // },
+        schema: {
+            body: filterMPSchema,
+        },
         handler: filterMarsPhotos,
     };
 
