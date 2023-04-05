@@ -28,7 +28,7 @@ function nasaRoutes(fastify, options, done) {
     fastify.get('/pictures-all', getAllPicutesOfTheDay);
 
     // Get Nasa Picture of the day
-    fastify.get('/nasa', nasaPictureOpts);
+    fastify.get('/nasa/:date', nasaPictureOpts);
 
     // Get Nasa Rovers Photos for random day
     fastify.get('/nasa-rovers/:date', listPhotosMarsRovers);

@@ -21,9 +21,8 @@ const createTablePicuteOfTheDay = async(request, reply) => {
 };
 
 const getPuctureOfTheDay = async (request, reply) => {
-    let date = new Date();
-    var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 )) .toISOString() .split("T")[0];
-    const nasaUrl = `https://api.nasa.gov/planetary/apod?date=${dateString}&api_key=${process.env.NASA_API_KEY}`;
+    let {date} = request.params;
+    const nasaUrl = `https://api.nasa.gov/planetary/apod?date=${date}&api_key=${process.env.NASA_API_KEY}`;
           
     try {
         // Send request to NASA API
