@@ -21,7 +21,9 @@ const createTablePicuteOfTheDay = async(request, reply) => {
 };
 
 const getPuctureOfTheDay = async (request, reply) => {
-    const nasaUrl = `https://api.nasa.gov/planetary/apod?api_key=${process.env.NASA_API_KEY}`;
+    let date = new Date();
+    var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 )) .toISOString() .split("T")[0];
+    const nasaUrl = `https://api.nasa.gov/planetary/apod?date=${dateString}&api_key=${process.env.NASA_API_KEY}`;
           
     try {
         // Send request to NASA API
@@ -116,15 +118,15 @@ const getPhotos = async () => {
 };
 
 const listPhotosMarsRovers = async(request, reply) => {
-    const {year, month, day } = request.params;
-    let randomDate = `${year}-${month}-${day}`; 
+    //console.log("PARAMS :", request.params);
+    const { date } = request.params;
     // console.log("REQ PARAMS :", request.params);
-    // console.log("randomDate :", randomDate);
-    const nasaUrl = `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=${randomDate}&api_key=${process.env.NASA_API_KEY}`;
+    const nasaUrl = `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=${date}&api_key=${process.env.NASA_API_KEY}`;
 
     try {
         // Send request to NASA API
         const response = await axios.get(nasaUrl);
+        //console.log("response: ", response);
         const data = response.data;
         //console.log("DATA :", data.photos.length);
         const promises = [];
@@ -291,10 +293,21 @@ const getNearEarthObjects = async (request, reply) => {
     }
 };
 
+const getAllPicutesOfTheDay = async(request, reply) => {
+    try {
+        const result = await pool.query('SELECT * FROM picture_of_the_day');
+        //console.log("result :", result.rows[0].data);
+        return reply.send(result.rows[0].data);
+    }catch(err) {
+        throw new Error('Error, while fetching data from the db!');
+    }
+}
+
 module.exports = {
     createTablePicuteOfTheDay,
     getPuctureOfTheDay,
     listPhotosMarsRovers,
     filterMarsPhotos,
     getNearEarthObjects,
+    getAllPicutesOfTheDay,
 }
