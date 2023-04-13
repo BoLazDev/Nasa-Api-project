@@ -35,5 +35,5 @@ exports.up = function(knex) {
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-    return knex.schema.dropTable('mars_camera').dropTable('mars_rovers').dropTable('mars_photos');
+    return knex.schema.dropTable('mars_photos').dropTable('mars_rovers').dropTable('mars_camera');
 };

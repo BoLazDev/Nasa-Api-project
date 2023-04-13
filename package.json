@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "migrate:up": "knex migrate:latest",
+    "migrate:down": "knex migrate:rollback"
   },
   "keywords": [],
   "author": "",
